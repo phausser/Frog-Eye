@@ -17,10 +17,20 @@
       pointer-events: none;
       z-index: 10;
     }
+    /* Frog nose — separates left and right eye viewports */
+    #nose {
+      position: fixed; top: 0; left: 50%;
+      transform: translateX(-50%);
+      width: 12px; height: 100vh;
+      background: #000;
+      pointer-events: none;
+      z-index: 5;
+    }
   </style>
 </head>
 <body>
   <canvas id="game-canvas"></canvas>
+  <div id="nose"></div>
   <div id="hud">
     <span id="hud-lives">♥ ♥ ♥</span>
     <span id="hud-score">0</span>

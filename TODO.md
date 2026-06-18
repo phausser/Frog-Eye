@@ -32,11 +32,12 @@
 - [x] `.github/workflows/cd.yml` — Vite Build + GitHub Pages Deploy, `VITE_BASE_URL` dynamisch gesetzt
 - [x] `.github/dependabot.yml` — npm (gruppiert) + github-actions, montags wöchentlich
 
-## Milestone 4: Verkehr
-- [ ] `src/world/vehicle.js`: Auto + Lkw als Low-Poly Box-Komposition
-- [ ] `src/world/road.js`: Fahrzeuge spawnen, Geschwindigkeit + Richtung pro Reihe
-- [ ] `src/utils/pool.js`: Object Pool für Fahrzeuge (Performance)
-- [ ] `src/utils/collision.js`: Grid-Kollision Frosch ↔ Fahrzeug → Leben verlieren
+## Milestone 4: Verkehr ✓
+- [x] `src/world/vehicle.js`: Auto (rot) + Lkw (blau) als Low-Poly Box-Komposition (Body + Kabine)
+- [x] `src/world/road.js`: `spawnTraffic(scene)` + `updateTraffic(vehicles, delta)` — 11 Fahrzeuge, X-Wrap, Geschwindigkeit aus ROW_CONFIG × VEHICLE_SPEED_BASE
+- [x] `src/utils/pool.js`: Generischer Object Pool, genutzt für Fahrzeug-Meshes
+- [x] `src/utils/collision.js`: AABB Frosch ↔ Fahrzeug (animierte X-Position, logische Row)
+- [x] `src/main.js`: Leben-System (3 ♥), `deathCooldown` verhindert Mehrfach-Treffer, `resetFrog` bei Tod
 
 ## Milestone 5: Fluss
 - [ ] `src/world/platform.js`: Baumstamm + Schildkröte als Low-Poly Entity
@@ -49,11 +50,16 @@
 - [ ] Alle 5 Slots voll: Level-Up, Geschwindigkeiten erhöhen
 - [ ] `src/world/goal.js`: visuelles Feedback wenn Slot besetzt
 
+## Dual-Eye Vision ✓ (vorgezogen aus M7)
+- [x] `createFrogCameraSystem()`: zwei Kameras, je EYE_FOV=120°, EYE_OFFSET=50° nach außen
+- [x] `renderDualEye()`: Scissor + Viewport, `autoClear=false`, manuelle clear pro Frame
+- [x] Nasenstreifen (12px schwarzes Div) trennt linkes und rechtes Auge
+- [x] EYE_FOV + EYE_OFFSET in constants.js; Kamera-Aspect wird jede Frame aus window.innerWidth/2 gesetzt
+
 ## Milestone 7: Frosch-Sicht (Vision Shader)
-- [ ] `src/vision/frogEyePass.js`: Three.js `EffectComposer` + custom `ShaderPass`
-- [ ] GLSL: Barrel-Distortion (Fisheye) für linke + rechte Bildschirmhälfte
-- [ ] GLSL: Farbshift (Rot-Kanal → 20%, Grün/Blau → 100%)
-- [ ] Nasenbereich in der Mitte (schwarze Maske, ~5% Bildbreite)
+- [ ] `src/vision/frogEyePass.js`: GLSL Barrel-Distortion (echter Fisheye-Effekt) pro Auge
+- [ ] GLSL: Farbshift (Rot-Kanal → 20%, Grün/Blau → 100%) — Dichromat
+- [ ] Post-Processing via EffectComposer + ShaderPass
 
 ## Milestone 8: Motion Mask
 - [ ] `src/vision/motionMask.js`: Frame-Differenz-Ansatz oder Objekt-Flag

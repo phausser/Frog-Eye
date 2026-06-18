@@ -1,6 +1,8 @@
 import * as THREE from 'three';
-import { CELL_SIZE, GRID_COLS, ROWS, COLORS } from '../utils/constants.js';
+import { CELL_SIZE, GRID_COLS, ROWS, COLORS, VEHICLE_SPEED_BASE, ROW_CONFIG } from '../utils/constants.js';
 import { rowToZ } from './grid.js';
+import { createPool } from '../utils/pool.js';
+import { createVehicleMesh, VEHICLE_HIT_HW } from './vehicle.js';
 
 const W = GRID_COLS * CELL_SIZE;
 const ROAD_ROWS = ROWS.ROAD_END - ROWS.ROAD_START + 1;
@@ -62,4 +64,50 @@ export function buildRoad(scene) {
   buildCurbs(group);
   buildStripes(group);
   scene.add(group);
+}
+
+// ── Traffic ──────────────────────────────────────────────────────────────────
+
+// [type, initial x offset from world centre] per road row
+const LANE_LAYOUT = {
+  1: [['car',   -8], ['car',    3]],
+  2: [['truck', -5], ['car',    6]],
+  3: [['car',  -10], ['car',    0], ['car',   8]],
+  4: [['truck', -2], ['car',    7]],
+  5: [['car',   -8], ['truck',  4]],
+};
+
+// Vehicles wrap just outside the visible road width
+const WRAP_X = (GRID_COLS / 2 + 3) * CELL_SIZE; // ≈ 19 units
+
+const pools = {
+  car:   createPool(() => createVehicleMesh('car')),
+  truck: createPool(() => createVehicleMesh('truck')),
+};
+
+export function spawnTraffic(scene) {
+  const vehicles = [];
+  for (const [rowStr, specs] of Object.entries(LANE_LAYOUT)) {
+    const row  = Number(rowStr);
+    const conf = ROW_CONFIG[row];
+    const speed = conf.speed * VEHICLE_SPEED_BASE;
+
+    for (const [type, startX] of specs) {
+      const mesh = pools[type].acquire();
+      mesh.position.set(startX, 0, rowToZ(row));
+      mesh.rotation.y = conf.dir === -1 ? Math.PI : 0;
+      scene.add(mesh);
+      vehicles.push({ type, row, x: startX, dir: conf.dir, speed, halfW: VEHICLE_HIT_HW[type], mesh });
+    }
+  }
+  return vehicles;
+}
+
+export function updateTraffic(vehicles, delta) {
+  for (const v of vehicles) {
+    v.x += v.dir * v.speed * delta;
+    if (v.x >  WRAP_X) v.x -= WRAP_X * 2;
+    if (v.x < -WRAP_X) v.x += WRAP_X * 2;
+    v.mesh.position.x = v.x;
+  }
 }

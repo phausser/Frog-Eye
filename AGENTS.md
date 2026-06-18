@@ -47,8 +47,10 @@ Frogger-Klon, gespielt aus der First-Person-Perspektive eines Frosches mit biolo
 ## Aktueller Stand
 - **Milestone 1 ✓**: Vite + ESLint + Three.js läuft
 - **Milestone 2 ✓**: Spielfeld — Gras, Straße (Curbs + Dashes), Fluss (animiert), Seerosen-Slots
-- **Milestone 3 ✓**: Frosch springt grid-basiert; Kamera dreht sich mit `facingAngle`; WASD + Pfeiltasten; Rand-Begrenzung
-- **Nächstes**: Milestone 4 — Fahrzeuge (Auto/Lkw spawnen, Kollision = Tod)
+- **Milestone 3 ✓**: Frosch springt grid-basiert; Kamera dreht sich mit `facingAngle`; W=springen, A/D=drehen
+- **Milestone 4 ✓**: 11 Fahrzeuge (Autos rot, Lkws blau) fahren, wrappen, töten den Frosch; Pool, Kollision, Leben
+- **Dual-Eye Vision ✓**: Zwei Kameras (je 120° FOV, 50° nach außen geneigt) → ~214° Sichtfeld; Nasenstreifen; `renderDualEye()` mit Scissor/Viewport; `autoClear=false`
+- **Nächstes**: Milestone 5 — Fluss (Stämme, Schildkröten, Frosch mitreißen, Ertrinken)
 
 ## Wichtige Spielfeld-Zahlen (aus `constants.js`)
 - Rasterbreite: 13 Felder

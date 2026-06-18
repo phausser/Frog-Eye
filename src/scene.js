@@ -12,23 +12,14 @@ export function createRenderer(canvas) {
   renderer.setSize(window.innerWidth, window.innerHeight);
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
   renderer.shadowMap.enabled = true;
-  renderer.shadowMap.type = THREE.BasicShadowMap;
+  renderer.shadowMap.type    = THREE.BasicShadowMap;
+  renderer.autoClear         = false; // dual-viewport: we clear manually each frame
   return renderer;
 }
 
-export function createCamera() {
-  const aspect = window.innerWidth / window.innerHeight;
-  // Wide FOV — will be replaced by dual-eye fisheye in M7
-  const camera = new THREE.PerspectiveCamera(90, aspect, 0.01, 200);
-  return camera;
-}
-
-export function setupResize(camera, renderer) {
-  window.addEventListener('resize', () => {
-    camera.aspect = window.innerWidth / window.innerHeight;
-    camera.updateProjectionMatrix();
-    renderer.setSize(window.innerWidth, window.innerHeight);
-  });
+export function setupResize(renderer) {
+  // Camera aspects are updated every frame in frogCamera.update() — only renderer needs resize.
+  window.addEventListener('resize', () => renderer.setSize(window.innerWidth, window.innerHeight));
 }
 
 export function addLights(scene) {
