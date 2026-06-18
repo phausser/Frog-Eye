@@ -70,10 +70,13 @@
 - [x] Bewegte Objekte (Fahrzeuge, Plattformen): volle Sichtbarkeit
 - [ ] Fahrzeuge: Bewegungsrichtungs-Spur (kurzer Afterimage-Effekt) — verschoben auf M10 Polish
 
-## Milestone 9: HUD & Screens
-- [ ] `src/ui/hud.js`: HTML-Overlay — Punkte, Leben (Frosch-Icons), Timer
-- [ ] `src/ui/screens.js`: Start-Screen, Game-Over-Screen, Level-Up-Einblendung
-- [ ] Timer: 60s Countdown, bei 0 = Leben verlieren
+## Milestone 9: HUD & Screens ✓
+- [x] `src/ui/hud.js`: HTML-Overlay — Punkte, Leben (♥), Level, Timer; alle weiß
+- [x] `src/ui/minimap.js`: Canvas-Minimap (bottom-right) — Zonen, Goal-Slots, Frosch-Dot
+- [x] `src/world/goal.js`: `getFilledSlots()` für Minimap-State
+- [x] Timer: 60s Countdown, bei 0 = Leben verlieren; blinkt bei ≤10s
+- [x] UI komplett als Overlay mit weißer Schrift/Drawings, semitransparenter HUD-Bar
+- [ ] `src/ui/screens.js`: Start-Screen, Game-Over-Screen, Level-Up-Einblendung — verschoben auf M10
 
 ## Milestone 10: Polish
 - [ ] Low-Poly Fahrzeuge ausarbeiten (Auto = 3 Boxen, Lkw = 2 Boxen + Kabine)

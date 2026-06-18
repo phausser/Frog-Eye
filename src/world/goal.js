@@ -103,3 +103,5 @@ export function resetGoalSlots() {
     mesh.material.color.setHex(COLOR_FREE);
   });
 }
+
+export function getFilledSlots() { return filledSlots; }
