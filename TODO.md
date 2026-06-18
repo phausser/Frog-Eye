@@ -39,11 +39,12 @@
 - [x] `src/utils/collision.js`: AABB Frosch ↔ Fahrzeug (animierte X-Position, logische Row)
 - [x] `src/main.js`: Leben-System (3 ♥), `deathCooldown` verhindert Mehrfach-Treffer, `resetFrog` bei Tod
 
-## Milestone 5: Fluss
-- [ ] `src/world/platform.js`: Baumstamm + Schildkröte als Low-Poly Entity
-- [ ] Schildkröte: taucht-unter-Zyklus (Interval + Tween)
-- [ ] Frosch auf Plattform: mitbewegen, bei Fluss-Reihe ohne Plattform → ertrinken
-- [ ] Krokodil-Kopf: selbe Form wie Stamm, tötet bei Berührung
+## Milestone 5: Fluss ✓
+- [x] `src/world/platform.js`: Log (braun) + Turtle (grün, CylinderGeometry hex) + Croc (oliv + Augen)
+- [x] Schildkröte: 4-Phasen-Zyklus surface→sinking→underwater→rising (3/1.5/2/1.5 s), Y-Lerp-Animation
+- [x] `frog.worldX`: kontinuierliche X-Position; `carryFrog(frog, dx)` trägt Frosch mit Plattform
+- [x] `findPlatformUnderFrog` / `isFrogDrowning` / `checkFrogCroc` in collision.js
+- [x] Frosch ertrinkt wenn: keine Plattform unter ihm, Schildkröte underwater, Krokodil, vom Screen getragen
 
 ## Milestone 6: Ziel & Level
 - [ ] Frosch erreicht Ziel-Reihe + leeren Slot: Slot füllen, Frosch zurück

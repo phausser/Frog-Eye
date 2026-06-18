@@ -1,6 +1,7 @@
 import { describe, it, expect } from 'vitest';
-import { createFrog, tryJump, updateFrog, rotateFrog, getFrogPos } from '../src/frog/frog.js';
-import { ROWS, GRID_COLS } from '../src/utils/constants.js';
+import { createFrog, tryJump, updateFrog, rotateFrog, getFrogPos, carryFrog } from '../src/frog/frog.js';
+import { ROWS, GRID_COLS, CELL_SIZE } from '../src/utils/constants.js';
+import { colToX } from '../src/world/grid.js';
 
 describe('createFrog', () => {
   it('starts idle at row 0, center column', () => {
@@ -47,14 +48,14 @@ describe('tryJump', () => {
 
   it('blocks a jump beyond the left boundary', () => {
     const frog = createFrog();
-    frog.col = 0;
+    frog.col = 0; frog.worldX = colToX(0);
     rotateFrog(frog, -1); // face left (dCol=-1)
     expect(tryJump(frog)).toBe(false);
   });
 
   it('blocks a jump beyond the right boundary', () => {
     const frog = createFrog();
-    frog.col = GRID_COLS - 1;
+    frog.col = GRID_COLS - 1; frog.worldX = colToX(GRID_COLS - 1);
     rotateFrog(frog, 1); // face right (dCol=+1)
     expect(tryJump(frog)).toBe(false);
   });
@@ -126,5 +127,26 @@ describe('getFrogPos', () => {
     frog.jumpProgress = 0.5;
     const pos = getFrogPos(frog);
     expect(pos.y).toBeGreaterThan(0);
+  });
+
+  it('x reflects worldX when idle', () => {
+    const frog = createFrog();
+    frog.worldX = 4;
+    expect(getFrogPos(frog).x).toBe(4);
+  });
+});
+
+describe('carryFrog', () => {
+  it('shifts worldX by the given delta', () => {
+    const frog = createFrog();
+    const before = frog.worldX;
+    carryFrog(frog, 2);
+    expect(frog.worldX).toBeCloseTo(before + 2);
+  });
+
+  it('clamps worldX to prevent infinite drift', () => {
+    const frog = createFrog();
+    carryFrog(frog, 9999);
+    expect(frog.worldX).toBeLessThan((GRID_COLS / 2 + 2) * CELL_SIZE + 1);
   });
 });

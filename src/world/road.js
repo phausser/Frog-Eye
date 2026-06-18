@@ -2,7 +2,7 @@ import * as THREE from 'three';
 import { CELL_SIZE, GRID_COLS, ROWS, COLORS, VEHICLE_SPEED_BASE, ROW_CONFIG } from '../utils/constants.js';
 import { rowToZ } from './grid.js';
 import { createPool } from '../utils/pool.js';
-import { createVehicleMesh, VEHICLE_HIT_HW } from './vehicle.js';
+import { createVehicleMesh, VEHICLE_HIT_HW, CAR_COLORS, TRUCK_COLORS, applyVehicleColors } from './vehicle.js';
 
 const W = GRID_COLS * CELL_SIZE;
 const ROAD_ROWS = ROWS.ROAD_END - ROWS.ROAD_START + 1;
@@ -87,13 +87,20 @@ const pools = {
 
 export function spawnTraffic(scene) {
   const vehicles = [];
+  let carColorI = 0, truckColorI = 0;
+
   for (const [rowStr, specs] of Object.entries(LANE_LAYOUT)) {
-    const row  = Number(rowStr);
-    const conf = ROW_CONFIG[row];
+    const row   = Number(rowStr);
+    const conf  = ROW_CONFIG[row];
     const speed = conf.speed * VEHICLE_SPEED_BASE;
 
     for (const [type, startX] of specs) {
-      const mesh = pools[type].acquire();
+      const mesh   = pools[type].acquire();
+      const colors = type === 'car'
+        ? CAR_COLORS[carColorI++ % CAR_COLORS.length]
+        : TRUCK_COLORS[truckColorI++ % TRUCK_COLORS.length];
+
+      applyVehicleColors(mesh, colors);
       mesh.position.set(startX, 0, rowToZ(row));
       mesh.rotation.y = conf.dir === -1 ? Math.PI : 0;
       scene.add(mesh);

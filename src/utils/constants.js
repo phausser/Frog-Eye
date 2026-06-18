@@ -18,7 +18,8 @@ export const ROWS = {
 export const GOAL_COLS = [1, 3, 6, 9, 11];
 
 export const FROG_EYE_HEIGHT    = 0.15;
-export const VEHICLE_SPEED_BASE = 3;   // world units/second base multiplier
+export const VEHICLE_SPEED_BASE  = 3;   // world units/second base multiplier
+export const PLATFORM_SPEED_BASE = 1.5; // platforms are slower than traffic
 
 // Dual-eye vision — biologically accurate frog parameters
 //

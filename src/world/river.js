@@ -1,6 +1,8 @@
 import * as THREE from 'three';
-import { CELL_SIZE, GRID_COLS, ROWS, COLORS } from '../utils/constants.js';
+import { CELL_SIZE, GRID_COLS, ROWS, COLORS, PLATFORM_SPEED_BASE, ROW_CONFIG } from '../utils/constants.js';
 import { rowToZ } from './grid.js';
+import { createPool } from '../utils/pool.js';
+import { createPlatformMesh, buildPlatform, updatePlatform } from './platform.js';
 
 const W = GRID_COLS * CELL_SIZE;
 const RIVER_ROWS  = ROWS.RIVER_END - ROWS.RIVER_START + 1;
@@ -44,6 +46,51 @@ export function buildRiver(scene) {
   buildBanks(group);
   scene.add(group);
 }
+
+// ── Platforms ─────────────────────────────────────────────────────────────────
+
+// [type, initial x] per river row
+const RIVER_SPAWN = {
+  7:  [['log',    -9], ['log',    2]],
+  8:  [['turtle', -7], ['turtle', 1], ['log',  8]],
+  9:  [['log',   -10], ['croc',  -1], ['log',  7]],
+  10: [['log',    -8], ['log',    4]],
+  11: [['turtle', -9], ['log',   0], ['turtle', 9]],
+  12: [['log',    -7], ['log',   4]],
+};
+
+const WRAP_X = (GRID_COLS / 2 + 3) * CELL_SIZE; // ≈ 19 units
+
+const pools = {
+  log:    createPool(() => createPlatformMesh('log')),
+  turtle: createPool(() => createPlatformMesh('turtle')),
+  croc:   createPool(() => createPlatformMesh('croc')),
+};
+
+export function spawnPlatforms(scene) {
+  const platforms = [];
+  for (const [rowStr, specs] of Object.entries(RIVER_SPAWN)) {
+    const row   = Number(rowStr);
+    const conf  = ROW_CONFIG[row];
+    const speed = conf.speed * PLATFORM_SPEED_BASE;
+    for (const [type, startX] of specs) {
+      platforms.push(buildPlatform(type, row, startX, conf.dir, speed, scene, pools[type]));
+    }
+  }
+  return platforms;
+}
+
+export function updatePlatforms(platforms, delta) {
+  for (const p of platforms) {
+    p.x += p.dir * p.speed * delta;
+    if (p.x >  WRAP_X) p.x -= WRAP_X * 2;
+    if (p.x < -WRAP_X) p.x += WRAP_X * 2;
+    p.mesh.position.x = p.x;
+    updatePlatform(p, delta);
+  }
+}
+
+// ── Water animation ───────────────────────────────────────────────────────────
 
 export function updateRiver(time) {
   if (!waterPositions) return;
