@@ -40,6 +40,68 @@
     }
     .hud-timer-low { animation: hud-pulse 0.5s ease-in-out infinite; }
 
+    /* ── Screens ── */
+    .screen {
+      position: fixed; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      background: rgba(0, 0, 0, 0.78);
+      color: #fff;
+      font-family: monospace;
+      z-index: 100;
+      text-align: center;
+    }
+    .screen.hidden { display: none; }
+
+    .screen-levelup {
+      background: rgba(0, 0, 0, 0.55);
+      pointer-events: none;
+    }
+
+    .screen-content { display: flex; flex-direction: column; gap: 16px; align-items: center; }
+
+    .screen-title {
+      font-size: clamp(2.2rem, 8vw, 4.5rem);
+      letter-spacing: 0.18em;
+      color: #9fffb0;
+      text-shadow: 0 0 24px rgba(80, 255, 120, 0.55);
+      margin: 0;
+    }
+
+    .screen-levelup .screen-title { color: #ffe066; text-shadow: 0 0 20px rgba(255, 200, 0, 0.6); }
+
+    .screen-sub {
+      font-size: clamp(0.75rem, 2.5vw, 1rem);
+      color: rgba(255, 255, 255, 0.55);
+      letter-spacing: 0.12em;
+      margin: 0;
+    }
+
+    .screen-score {
+      font-size: clamp(1rem, 3.5vw, 1.5rem);
+      color: rgba(255, 255, 255, 0.85);
+      letter-spacing: 0.1em;
+      margin: 0;
+    }
+
+    .screen-levelnum {
+      font-size: clamp(3rem, 12vw, 7rem);
+      color: #ffe066;
+      line-height: 1;
+      margin: 0;
+    }
+
+    @keyframes blink-prompt {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: 0.25; }
+    }
+    .screen-prompt {
+      font-size: clamp(0.7rem, 2.2vw, 0.9rem);
+      letter-spacing: 0.2em;
+      color: rgba(255, 255, 255, 0.6);
+      animation: blink-prompt 1.2s ease-in-out infinite;
+      margin: 0;
+    }
+
     /* ── Minimap ── */
     #minimap-wrap {
       position: fixed; bottom: 20px; right: 20px;
@@ -71,6 +133,32 @@
     <div id="hud-right">
       <span id="hud-level">L1</span>
       <span id="hud-timer">60</span>
+    </div>
+  </div>
+
+  <!-- Start screen -->
+  <div id="screen-start" class="screen">
+    <div class="screen-content">
+      <h1 class="screen-title">FROG EYE</h1>
+      <p class="screen-sub">See the world through frog eyes</p>
+      <p class="screen-prompt">TAP OR PRESS ANY KEY</p>
+    </div>
+  </div>
+
+  <!-- Game Over screen -->
+  <div id="screen-gameover" class="screen hidden">
+    <div class="screen-content">
+      <h1 class="screen-title">GAME OVER</h1>
+      <p class="screen-score">SCORE &nbsp;<span id="go-score">00000</span></p>
+      <p class="screen-prompt">TAP OR PRESS ANY KEY</p>
+    </div>
+  </div>
+
+  <!-- Level-Up overlay (non-blocking) -->
+  <div id="screen-levelup" class="screen screen-levelup hidden">
+    <div class="screen-content">
+      <h1 class="screen-title">LEVEL UP</h1>
+      <p class="screen-levelnum" id="lu-level">2</p>
     </div>
   </div>
 

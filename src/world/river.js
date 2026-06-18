@@ -83,6 +83,7 @@ export function spawnPlatforms(scene) {
     const speed = conf.speed * PLATFORM_SPEED_BASE;
     for (const [type, startX] of specs) {
       const p = buildPlatform(type, row, startX, conf.dir, speed, scene, pools[type]);
+      p.baseSpeed = speed;
       setLayer(p.mesh, LAYER_MOVING);
       platforms.push(p);
     }

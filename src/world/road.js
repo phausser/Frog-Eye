@@ -2,7 +2,7 @@ import * as THREE from 'three';
 import { CELL_SIZE, GRID_COLS, ROWS, COLORS, VEHICLE_SPEED_BASE, ROW_CONFIG } from '../utils/constants.js';
 import { rowToZ } from './grid.js';
 import { createPool } from '../utils/pool.js';
-import { createVehicleMesh, VEHICLE_HIT_HW, CAR_COLORS, TRUCK_COLORS, applyVehicleColors } from './vehicle.js';
+import { createVehicleMesh, createTrailMesh, VEHICLE_HIT_HW, CAR_COLORS, TRUCK_COLORS, applyVehicleColors } from './vehicle.js';
 import { setLayer, LAYER_STATIC, LAYER_MOVING } from '../vision/motionMask.js';
 
 const W = GRID_COLS * CELL_SIZE;
@@ -107,7 +107,17 @@ export function spawnTraffic(scene) {
       mesh.position.set(startX, 0, rowToZ(row));
       mesh.rotation.y = conf.dir === -1 ? Math.PI : 0;
       scene.add(mesh);
-      vehicles.push({ type, row, x: startX, dir: conf.dir, speed, halfW: VEHICLE_HIT_HW[type], mesh });
+
+      const z = rowToZ(row);
+      const trails = [0, 1].map((idx) => {
+        const t = createTrailMesh(type, colors.body, idx);
+        t.position.set(startX, 0, z);
+        setLayer(t, LAYER_MOVING);
+        scene.add(t);
+        return t;
+      });
+
+      vehicles.push({ type, row, x: startX, dir: conf.dir, speed, baseSpeed: speed, halfW: VEHICLE_HIT_HW[type], mesh, trails, z });
     }
   }
   return vehicles;
@@ -119,5 +129,7 @@ export function updateTraffic(vehicles, delta) {
     if (v.x >  WRAP_X) v.x -= WRAP_X * 2;
     if (v.x < -WRAP_X) v.x += WRAP_X * 2;
     v.mesh.position.x = v.x;
+    v.trails[0].position.x = v.x - v.dir * 1.1;
+    v.trails[1].position.x = v.x - v.dir * 2.1;
   }
 }

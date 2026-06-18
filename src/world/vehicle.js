@@ -104,6 +104,18 @@ export function createVehicleMesh(type) {
   return group;
 }
 
+export function createTrailMesh(type, bodyColor, idx) {
+  const d      = DEF[type];
+  const bright = idx === 0 ? 0.45 : 0.18;
+  const col    = new THREE.Color(bodyColor).multiplyScalar(bright);
+  const mesh   = new THREE.Mesh(
+    new THREE.BoxGeometry(d.bodyW, 0.12, d.bodyD * (0.85 - idx * 0.25)),
+    new THREE.MeshPhongMaterial({ color: col, flatShading: true })
+  );
+  mesh.position.y = 0.06;
+  return mesh;
+}
+
 export function applyVehicleColors(group, colors) {
   const [bodyMesh, cabMesh] = group.children;
   bodyMesh.material = bodyMesh.material.clone();
