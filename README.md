@@ -11,6 +11,10 @@ Du siehst die Welt durch ein 320°-Panorama, in dem sich nur bewegte Dinge schar
 - **Dichromat-Farbsicht** — Rot existiert nicht; Autos erkennst du an Form und Bewegung
 - **Low-Poly** — kein ästhetischer Kompromiss, so grobkörnig sieht ein Frosch wirklich
 
+## Stand
+
+Milestones 1–9 abgeschlossen. Milestone 10 (Polish) läuft: Fahrzeuge mit Rädern, detaillierte Plattformen (Log-Zylinder, Schildkröte mit Panzer, Krokodil mit Segmenten), verbessertes Wasser.
+
 ## Setup
 
 ```bash

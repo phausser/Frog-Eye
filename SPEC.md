@@ -157,8 +157,9 @@ Composite auf Screen
 - Materialien: `MeshPhongMaterial` mit `flatShading: true` — keine Texturen
 - Farben: knappe Palette (Grün, Blau, Grau, Dunkelgrün)
 - Schatten: harte Schatten, `PCFSoftShadowMap` ausgeschaltet
-- Fahrzeuge: einfache Box-Kompositionen, charakteristisch durch Form
-- Wasser: animierte flache Plane mit Vertex-Displacement (kein Shader-Komplex)
+- Fahrzeuge: Body + Kabine + Zylinder-Räder mit Rim + Auspuffrohr (Lkw) — keine Scheinwerfer
+- Plattformen: Log als Zylinder mit Holzenden + Knubbel; Schildkröte mit Panzer/Flossen/Augen; Krokodil mit Körpersegmenten/Rückenplatten/Augen
+- Wasser: animierte Plane (40×40), 3 überlagerte Wellenfrequenzen, Spekularmaterial
 
 ---
 
@@ -184,7 +185,7 @@ Composite auf Screen
 | 4 | Verkehr | Autos + Lkws fahren, Kollision = Tod |
 | 5 | Fluss | Stämme + Schildkröten, Frosch mitreißen, Ertrinken |
 | 6 | Ziel | Ziel-Slots, Gewinn-Check, Level-Up |
-| 7 | Vision | Fisheye-Shader + Farbshift aktiv |
-| 8 | Motion Mask | Statische Objekte ausblenden, Bewegung betonen |
-| 9 | HUD & Screens | Timer, Punkte, Leben, Game Over, Start |
-| 10 | Polish | Low-Poly Fahrzeuge, Wasser-Animation, Sounds |
+| 7 | Vision ✓ | Fisheye-Shader + Farbshift aktiv |
+| 8 | Motion Mask ✓ | Statische Objekte ausblenden, Bewegung betonen |
+| 9 | HUD & Screens ✓ | Timer, Punkte, Leben, Game Over |
+| 10 | Polish | Fahrzeuge/Plattformen detailliert, Wasser verbessert ✓ — Sound + Mobile offen |

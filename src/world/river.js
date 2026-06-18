@@ -10,20 +10,26 @@ const RIVER_ROWS  = ROWS.RIVER_END - ROWS.RIVER_START + 1;
 const RIVER_DEPTH = RIVER_ROWS * CELL_SIZE;
 const RIVER_CENTER_Z = rowToZ(ROWS.RIVER_START) - (RIVER_DEPTH / 2 - CELL_SIZE / 2);
 
-let waterPositions = null; // ref to vertex positions for animation
+let waterPositions = null;
+let waterMesh      = null;
 
 function buildSurface(group) {
-  const geo = new THREE.PlaneGeometry(W, RIVER_DEPTH, 28, 28);
+  // Higher segment count for smoother waves
+  const geo = new THREE.PlaneGeometry(W, RIVER_DEPTH, 40, 40);
   geo.rotateX(-Math.PI / 2);
   waterPositions = geo.attributes.position;
 
-  const mesh = new THREE.Mesh(
-    geo,
-    new THREE.MeshPhongMaterial({ color: COLORS.RIVER, flatShading: true, shininess: 60 })
-  );
-  mesh.position.set(0, 0, RIVER_CENTER_Z);
-  mesh.receiveShadow = true;
-  group.add(mesh);
+  const mat = new THREE.MeshPhongMaterial({
+    color:       COLORS.RIVER,
+    flatShading: true,
+    shininess:   120,
+    specular:    new THREE.Color(0xaaddff),
+  });
+
+  waterMesh = new THREE.Mesh(geo, mat);
+  waterMesh.position.set(0, 0, RIVER_CENTER_Z);
+  waterMesh.receiveShadow = true;
+  group.add(waterMesh);
 }
 
 function buildBanks(group) {
@@ -102,9 +108,13 @@ export function updateRiver(time) {
   for (let i = 0; i < count; i++) {
     const x = waterPositions.getX(i);
     const z = waterPositions.getZ(i);
-    const y = Math.sin(x * 0.4 + time * 1.1) * 0.04
-            + Math.cos(z * 0.3 + time * 0.8) * 0.03;
+    // Three overlapping wave frequencies for a natural look
+    const y = Math.sin(x * 0.55 + time * 1.3)  * 0.055
+            + Math.cos(z * 0.40 + time * 0.9)  * 0.040
+            + Math.sin(x * 0.20 - z * 0.15 + time * 0.6) * 0.025;
     waterPositions.setY(i, y);
   }
   waterPositions.needsUpdate = true;
+  // Recompute normals so flat-shading catches the wave peaks correctly
+  waterMesh.geometry.computeVertexNormals();
 }

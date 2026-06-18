@@ -79,8 +79,9 @@
 - [ ] `src/ui/screens.js`: Start-Screen, Game-Over-Screen, Level-Up-Einblendung — verschoben auf M10
 
 ## Milestone 10: Polish
-- [ ] Low-Poly Fahrzeuge ausarbeiten (Auto = 3 Boxen, Lkw = 2 Boxen + Kabine)
-- [ ] Wasser-Animation: Vertex-Displacement im `animate()`-Loop
+- [x] Fahrzeuge: `addWheels()` (Zylinder mit Rim), `addExhaust()` für Lkw — keine Scheinwerfer
+- [x] Plattformen: Log als Zylinder mit Endkappen + Ast-Knubbel; Schildkröte mit Bauch-Scheibe, Halbkugel-Panzer, Ridge, Hals, Kopf, Augen, 4 Flossen; Krokodil mit Body/Schwanz/Schnauze/Kiefer/Rückenplatten/Augen/Nasenlöcher
+- [x] Wasser: 3 überlagerte Wellenfrequenzen, Spekularhighlight (`shininess:120`, `specular: 0xaaddff`), `computeVertexNormals()` pro Frame, 40×40 Segmente
 - [ ] Sprung-Feedback: kleiner Staubpuff (Partikel) beim Landen
 - [ ] Sound: einfache Web Audio API Töne (Sprung, Tod, Ziel, Level-Up)
 - [ ] Mobile: Touch-Swipe statt Keyboard
