@@ -3,6 +3,7 @@ import { CELL_SIZE, GRID_COLS, ROWS, COLORS, PLATFORM_SPEED_BASE, ROW_CONFIG } f
 import { rowToZ } from './grid.js';
 import { createPool } from '../utils/pool.js';
 import { createPlatformMesh, buildPlatform, updatePlatform } from './platform.js';
+import { setLayer, LAYER_STATIC, LAYER_MOVING } from '../vision/motionMask.js';
 
 const W = GRID_COLS * CELL_SIZE;
 const RIVER_ROWS  = ROWS.RIVER_END - ROWS.RIVER_START + 1;
@@ -44,6 +45,7 @@ export function buildRiver(scene) {
   group.name = 'river';
   buildSurface(group);
   buildBanks(group);
+  setLayer(group, LAYER_STATIC);
   scene.add(group);
 }
 
@@ -74,7 +76,9 @@ export function spawnPlatforms(scene) {
     const conf  = ROW_CONFIG[row];
     const speed = conf.speed * PLATFORM_SPEED_BASE;
     for (const [type, startX] of specs) {
-      platforms.push(buildPlatform(type, row, startX, conf.dir, speed, scene, pools[type]));
+      const p = buildPlatform(type, row, startX, conf.dir, speed, scene, pools[type]);
+      setLayer(p.mesh, LAYER_MOVING);
+      platforms.push(p);
     }
   }
   return platforms;

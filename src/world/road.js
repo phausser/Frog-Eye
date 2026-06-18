@@ -3,6 +3,7 @@ import { CELL_SIZE, GRID_COLS, ROWS, COLORS, VEHICLE_SPEED_BASE, ROW_CONFIG } fr
 import { rowToZ } from './grid.js';
 import { createPool } from '../utils/pool.js';
 import { createVehicleMesh, VEHICLE_HIT_HW, CAR_COLORS, TRUCK_COLORS, applyVehicleColors } from './vehicle.js';
+import { setLayer, LAYER_STATIC, LAYER_MOVING } from '../vision/motionMask.js';
 
 const W = GRID_COLS * CELL_SIZE;
 const ROAD_ROWS = ROWS.ROAD_END - ROWS.ROAD_START + 1;
@@ -63,6 +64,7 @@ export function buildRoad(scene) {
   buildSurface(group);
   buildCurbs(group);
   buildStripes(group);
+  setLayer(group, LAYER_STATIC);
   scene.add(group);
 }
 
@@ -96,6 +98,7 @@ export function spawnTraffic(scene) {
 
     for (const [type, startX] of specs) {
       const mesh   = pools[type].acquire();
+      setLayer(mesh, LAYER_MOVING);
       const colors = type === 'car'
         ? CAR_COLORS[carColorI++ % CAR_COLORS.length]
         : TRUCK_COLORS[truckColorI++ % TRUCK_COLORS.length];

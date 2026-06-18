@@ -1,6 +1,7 @@
 import * as THREE from 'three';
 import { CELL_SIZE, GRID_COLS, ROWS, COLORS } from '../utils/constants.js';
 import { rowToZ } from './grid.js';
+import { setLayer, LAYER_STATIC } from '../vision/motionMask.js';
 
 const W = GRID_COLS * CELL_SIZE;
 
@@ -26,5 +27,6 @@ export function buildGrass(scene) {
   // Middle grass (row 6)
   group.add(grassMesh(CELL_SIZE, rowToZ(ROWS.MID_GRASS)));
 
+  setLayer(group, LAYER_STATIC);
   scene.add(group);
 }

@@ -1,6 +1,7 @@
 import * as THREE from 'three';
 import { CELL_SIZE, GRID_COLS, ROWS, GOAL_COLS, COLORS } from '../utils/constants.js';
 import { rowToZ, colToX } from './grid.js';
+import { setLayer, LAYER_STATIC } from '../vision/motionMask.js';
 
 const W      = GRID_COLS * CELL_SIZE;
 const GOAL_Z = rowToZ(ROWS.GOAL);
@@ -66,6 +67,7 @@ export function buildGoal(scene) {
   buildGoalWater(group);
   buildTopBank(group);
   GOAL_COLS.forEach((col) => slotMeshes.push(buildLilyPad(group, col)));
+  setLayer(group, LAYER_STATIC);
   scene.add(group);
 }
 

@@ -64,11 +64,11 @@
 - [x] GLSL: Farbshift (Rot-Kanal → 20%, Grün/Blau → 100%) — Dichromat
 - [x] Post-Processing via custom FBO + ShaderMaterial (kein EffectComposer — split-screen inkompatibel)
 
-## Milestone 8: Motion Mask
-- [ ] `src/vision/motionMask.js`: Frame-Differenz-Ansatz oder Objekt-Flag
-- [ ] Statische Objekte (Straße, Boden, Bäume): Opacity auf ~15%
-- [ ] Bewegte Objekte: volle Sichtbarkeit, optional Motion-Glow
-- [ ] Fahrzeuge: Bewegungsrichtungs-Spur (kurzer Afterimage-Effekt)
+## Milestone 8: Motion Mask ✓
+- [x] `src/vision/motionMask.js`: Objekt-Flag via Three.js Layers (Layer 1 = statisch, Layer 2 = bewegend)
+- [x] Statische Objekte (Straße, Boden, Fluss, Ziel): Opacity ~15%
+- [x] Bewegte Objekte (Fahrzeuge, Plattformen): volle Sichtbarkeit
+- [ ] Fahrzeuge: Bewegungsrichtungs-Spur (kurzer Afterimage-Effekt) — verschoben auf M10 Polish
 
 ## Milestone 9: HUD & Screens
 - [ ] `src/ui/hud.js`: HTML-Overlay — Punkte, Leben (Frosch-Icons), Timer
