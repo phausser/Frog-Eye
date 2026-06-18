@@ -20,9 +20,18 @@ export const GOAL_COLS = [1, 3, 6, 9, 11];
 export const FROG_EYE_HEIGHT    = 0.15;
 export const VEHICLE_SPEED_BASE = 3;   // world units/second base multiplier
 
-// Dual-eye vision
-export const EYE_FOV    = 120;                // vertical FOV per eye, degrees
-export const EYE_OFFSET = 50 * Math.PI / 180; // 50° — each eye looks outward from forward
+// Dual-eye vision — biologically accurate frog parameters
+//
+// Real frog: optical axis ~75° outward, ~170° horizontal FOV per eye,
+// ~20° binocular overlap in front, ~320° total field.
+//
+// Without fisheye shader (M7): perspective camera tops out at ~135° hFOV.
+// At EYE_OFFSET=75° + EYE_FOV=140° we get ~270° coverage with a
+// ~15° nose dead-zone (covered by the nose strip) — closest approximation
+// to real frog anatomy achievable with standard projection.
+// M7 fisheye will map 135° → 170° per eye, reaching the full ~320°.
+export const EYE_FOV    = 140;                // vertical FOV per eye, degrees
+export const EYE_OFFSET = 75 * Math.PI / 180; // 75° — biological eye axis angle
 export const JUMP_DURATION  = 0.15; // seconds per hop
 export const JUMP_HEIGHT    = 0.35; // world units at arc peak
 export const LOOK_AHEAD     = 5;    // units ahead camera targets

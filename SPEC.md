@@ -11,9 +11,13 @@ Der Spieler sieht die Welt durch Froschaugen: ein verzerrtes 320°-Panorama, in 
 ## Frosch-Sehsystem → Spielmechanik
 
 ### 1. Gesichtsfeld: ~320° panoramisch
-Froschaugen sitzen seitlich-oben am Kopf. Jedes Auge deckt ~170° ab, mit ~20° binokularem Überlapp direkt vorne.
+Froschaugen sitzen seitlich-oben am Kopf. Optische Achse zeigt ~**75° seitlich** von der Vorwärtsrichtung. Jedes Auge deckt ~**170° horizontal** ab. Binokularer Überlapp direkt vorne: **~20°**. Die Schnauze verursacht einen ~20° toten Winkel. Gesamtfeld: ~320°.
 
-**Im Spiel:** Stark verzerrtes Wide-Angle / Dual-Fisheye-Rendering. Linkes und rechtes Auge als getrennte Hälften, in der Mitte überlappt. Der Frosch sieht Autos von links UND rechts gleichzeitig — Scheuklappen gibt es nicht.
+**Im Spiel — aktuell (ohne Fisheye-Shader):**
+Zwei Perspektivkameras, je `EYE_OFFSET=75°`, `EYE_FOV=140°` → ~135° horizontales FOV pro Auge → **~270° Gesamtabdeckung**, ~15° Nasen-Toter-Winkel (durch Nasenstreifen verdeckt). Autos von links und rechts klar sichtbar.
+
+**Im Spiel — Milestone 7 (Fisheye-Shader):**
+GLSL Barrel-Distortion bildet die 135° Perspektive auf 170° ab → **~320°** mit biologisch korrektem 20° binokularen Vorderfeld.
 
 ### 2. Bewegungsdetektion: Nur bewegte Objekte sind sichtbar
 Das Frosch-Retina enthält spezialisierte „Bug Detector"-Neuronen. **Statische Objekte werden kaum wahrgenommen** — ein Frosch ignoriert tote Fliegen.
