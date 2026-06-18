@@ -7,15 +7,15 @@ const FLAT = { flatShading: true };
 const DEF = {
   log: {
     len: 2.5 * CELL_SIZE, h: 0.35, d: 1.4,
-    color: 0x8B5E3C, lethal: false,
+    color: 0xcc9966, lethal: false,
   },
   turtle: {
     len: 1.5 * CELL_SIZE, h: 0.26, d: 1.1,
-    color: 0x2d6a4f, lethal: false,
+    color: 0x66bb88, lethal: false,
   },
   croc: {
     len: 2.0 * CELL_SIZE, h: 0.35, d: 1.4,
-    color: 0x3a5a22, lethal: true,
+    color: 0x6aaa33, lethal: true,
   },
 };
 
@@ -54,7 +54,7 @@ function turtleMesh(def) {
   // Head (sticks out front in Z)
   const head = new THREE.Mesh(
     new THREE.BoxGeometry(0.18, 0.16, 0.22),
-    new THREE.MeshPhongMaterial({ color: 0x1b4332, ...FLAT })
+    new THREE.MeshPhongMaterial({ color: 0x3a9966, ...FLAT })
   );
   head.position.set(0, def.h * 0.7, 0.52);
   group.add(head);

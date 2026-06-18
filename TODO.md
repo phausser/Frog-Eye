@@ -59,10 +59,10 @@
 - [x] Nasenstreifen (12px schwarzes Div) trennt linkes und rechtes Auge
 - [x] EYE_FOV + EYE_OFFSET in constants.js; Kamera-Aspect wird jede Frame aus window.innerWidth/2 gesetzt
 
-## Milestone 7: Frosch-Sicht (Vision Shader)
-- [ ] `src/vision/frogEyePass.js`: GLSL Barrel-Distortion (echter Fisheye-Effekt) pro Auge
-- [ ] GLSL: Farbshift (Rot-Kanal → 20%, Grün/Blau → 100%) — Dichromat
-- [ ] Post-Processing via EffectComposer + ShaderPass
+## Milestone 7: Frosch-Sicht (Vision Shader) ✓
+- [x] `src/vision/frogEyePass.js`: GLSL Barrel-Distortion (echter Fisheye-Effekt) pro Auge
+- [x] GLSL: Farbshift (Rot-Kanal → 20%, Grün/Blau → 100%) — Dichromat
+- [x] Post-Processing via custom FBO + ShaderMaterial (kein EffectComposer — split-screen inkompatibel)
 
 ## Milestone 8: Motion Mask
 - [ ] `src/vision/motionMask.js`: Frame-Differenz-Ansatz oder Objekt-Flag

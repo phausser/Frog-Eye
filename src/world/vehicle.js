@@ -21,17 +21,17 @@ export const VEHICLE_HIT_HW = { car: DEF.car.hitHW, truck: DEF.truck.hitHW };
 
 // Car palette: gelb, hellblau, rot, weiß, silbern
 export const CAR_COLORS = [
-  { body: 0xddcc22, cab: 0x998811 }, // gelb
-  { body: 0x66bbdd, cab: 0x3388aa }, // hellblau
-  { body: 0xcc3322, cab: 0x881a12 }, // rot
-  { body: 0xeeeeee, cab: 0x999999 }, // weiß
-  { body: 0xaaaaaa, cab: 0x666666 }, // silbern
+  { body: 0xeedd33, cab: 0xaaaa11 }, // gelb
+  { body: 0x88ddff, cab: 0x44aacc }, // hellblau
+  { body: 0xdd4433, cab: 0xaa2211 }, // rot (erscheint dunkel durch Dichromat — Absicht)
+  { body: 0xffffff, cab: 0xcccccc }, // weiß
+  { body: 0xcccccc, cab: 0x999999 }, // silbern
 ];
 
 export const TRUCK_COLORS = [
-  { body: 0x2244aa, cab: 0x112266 }, // blau
-  { body: 0x336633, cab: 0x1a4420 }, // dunkelgrün
-  { body: 0xaa5522, cab: 0x663311 }, // orange-braun
+  { body: 0x5599ff, cab: 0x2255cc }, // blau
+  { body: 0x66cc66, cab: 0x338833 }, // grün
+  { body: 0xddaa44, cab: 0xaa7722 }, // orange-gelb
 ];
 
 function boxMesh(w, h, d, color) {

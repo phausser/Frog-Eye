@@ -9,6 +9,7 @@ import { createFrogCameraSystem } from './frog/frogCamera.js';
 import { setupInput } from './input.js';
 import { checkFrogVehicle, findPlatformUnderFrog, checkFrogCroc, isFrogDrowning } from './utils/collision.js';
 import { GRID_COLS, CELL_SIZE } from './utils/constants.js';
+import { createFrogEyePass } from './vision/frogEyePass.js';
 
 const DROWN_X          = (GRID_COLS / 2 + 1) * CELL_SIZE;
 const LEVEL_SPEED_MULT = 1.25; // speed multiplier per level-up
@@ -21,6 +22,9 @@ const renderer = createRenderer(canvas);
 
 setupResize(renderer);
 addLights(scene);
+
+const eyePass = createFrogEyePass(renderer);
+window.addEventListener('resize', () => eyePass.resize());
 
 buildGrass(scene);
 buildRoad(scene);
@@ -86,22 +90,6 @@ setupInput({
   onTurnRight: () => rotateFrog(frog,  1),
 });
 
-// ── Render ───────────────────────────────────────────────────────────────────
-
-function renderDualEye() {
-  const w = window.innerWidth;
-  const h = window.innerHeight;
-  renderer.clear();
-  renderer.setScissorTest(true);
-  renderer.setViewport(0, 0, w / 2, h);
-  renderer.setScissor(0, 0, w / 2, h);
-  renderer.render(scene, camSys.left);
-  renderer.setViewport(w / 2, 0, w / 2, h);
-  renderer.setScissor(w / 2, 0, w / 2, h);
-  renderer.render(scene, camSys.right);
-  renderer.setScissorTest(false);
-}
-
 // ── Loop ─────────────────────────────────────────────────────────────────────
 
 const clock = new THREE.Clock();
@@ -118,7 +106,7 @@ function animate() {
 
   if (deathCooldown > 0) {
     deathCooldown -= delta;
-    renderDualEye();
+    eyePass.render(scene, camSys.left, camSys.right);
     return;
   }
 
@@ -127,7 +115,7 @@ function animate() {
     if (frog.row === 13) {
       const slotIdx = checkGoalReached(frog);
       slotIdx >= 0 ? reachGoal(slotIdx) : loseLife();
-      renderDualEye();
+      eyePass.render(scene, camSys.left, camSys.right);
       return;
     }
 
@@ -145,7 +133,7 @@ function animate() {
     }
   }
 
-  renderDualEye();
+  eyePass.render(scene, camSys.left, camSys.right);
 }
 
 animate();

@@ -38,15 +38,15 @@ export const JUMP_HEIGHT    = 0.35; // world units at arc peak
 export const LOOK_AHEAD     = 5;    // units ahead camera targets
 
 export const COLORS = {
-  GRASS: 0x3a7d44,
-  GRASS_TOP: 0x2d6a2d,
-  ROAD: 0x2c2c2c,
-  ROAD_STRIPE: 0xddddbb,
-  CURB: 0x888877,
-  RIVER: 0x1a5f7a,
-  RIVER_DARK: 0x134a60,
-  LILYPAD: 0x2d6a4f,
-  LILYPAD_RIM: 0x1b4332,
+  GRASS: 0x6acf77,
+  GRASS_TOP: 0x55aa55,
+  ROAD: 0x787878,
+  ROAD_STRIPE: 0xeeeecc,
+  CURB: 0xbbbbaa,
+  RIVER: 0x33aadd,
+  RIVER_DARK: 0x2288bb,
+  LILYPAD: 0x66bb88,
+  LILYPAD_RIM: 0x3a8860,
   SKY: 0x7ab8d4,
 };
 
