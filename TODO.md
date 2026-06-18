@@ -8,13 +8,14 @@
 - [x] `src/main.js` als Einstiegspunkt, Three.js importieren
 - [x] `src/scene.js`: Scene, Renderer, Resize-Handler, Lichter
 
-## Milestone 2: Spielfeld
-- [ ] `src/utils/constants.js`: Raster-Dimensionen, Reihen-Typen, Geschwindigkeiten
-- [ ] `src/world/grid.js`: Raster-Logik, Reihen-Konfiguration, Koordinaten-Mapping
-- [ ] `src/world/road.js`: Straßen-Geometrie (Low-Poly, flat-shaded)
-- [ ] `src/world/river.js`: Fluss-Geometrie, animierte Wasser-Plane
-- [ ] `src/world/goal.js`: Ziel-Slots (5 Seerosen-Felder), Slot-Status
-- [ ] Mittleres Gras + Startzone Gras
+## Milestone 2: Spielfeld ✓
+- [x] `src/utils/constants.js`: Raster-Dimensionen, Reihen-Typen, Geschwindigkeiten, Farb-Palette
+- [x] `src/world/grid.js`: rowToZ, colToX, gridToWorld, getRowType, isRoad/isRiver/isGoal/isGrass
+- [x] `src/world/road.js`: Straßen-Fläche + Curbs + gestrichelte Spurmarkierungen (Low-Poly, flat-shaded)
+- [x] `src/world/river.js`: Fluss-Fläche (28×28 Subdivisions) + Uferstreifen + `updateRiver(time)` Animation
+- [x] `src/world/goal.js`: 5 Seerosen-Slots (CylinderGeometry + Torus-Rim) + Top-Bank + `fillSlot()`/`resetSlots()`
+- [x] `src/world/environment.js`: Startzone Gras + Mittleres Gras (flat-shaded)
+- [x] Kamera-Anpassung: Frog-Eye-Height (0.15) — in M3 leichte Abwärtskippung ergänzen
 
 ## Milestone 3: Frosch & Kamera
 - [ ] `src/frog/frog.js`: Grid-Position, Sprung-Logik (grid-basiert, geblockt während Sprung)

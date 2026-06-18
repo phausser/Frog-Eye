@@ -1,42 +1,36 @@
-import * as THREE from 'three';
 import { createScene, createRenderer, createCamera, setupResize, addLights } from './scene.js';
+import { buildRoad } from './world/road.js';
+import { buildRiver, updateRiver } from './world/river.js';
+import { buildGoal } from './world/goal.js';
+import { buildGrass } from './world/environment.js';
+import { gridToWorld, rowToZ } from './world/grid.js';
+import { ROWS, FROG_EYE_HEIGHT } from './utils/constants.js';
 
 const canvas = document.getElementById('game-canvas');
 
-const scene = createScene();
+const scene    = createScene();
 const renderer = createRenderer(canvas);
-const camera = createCamera();
-
-// Placeholder position — overridden by frogCamera in M3
-camera.position.set(0, 0.4, 1);
-camera.lookAt(0, 0.4, -5);
+const camera   = createCamera();
 
 setupResize(camera, renderer);
 addLights(scene);
 
-// Temp geometry: visible reference until world is built in M2
-const ground = new THREE.Mesh(
-  new THREE.PlaneGeometry(20, 40),
-  new THREE.MeshPhongMaterial({ color: 0x3a7d44, flatShading: true })
-);
-ground.rotation.x = -Math.PI / 2;
-ground.receiveShadow = true;
-scene.add(ground);
+buildGrass(scene);
+buildRoad(scene);
+buildRiver(scene);
+buildGoal(scene);
 
-const testBox = new THREE.Mesh(
-  new THREE.BoxGeometry(1, 1, 1),
-  new THREE.MeshPhongMaterial({ color: 0x44aa44, flatShading: true })
-);
-testBox.position.set(0, 0.5, -4);
-testBox.castShadow = true;
-scene.add(testBox);
+// Frog start position: row 0, col 6 (center) — overridden by frogCamera in M3
+const start = gridToWorld(ROWS.START, 6);
+camera.position.set(start.x, FROG_EYE_HEIGHT, rowToZ(ROWS.START) + 0.5);
+camera.lookAt(start.x, FROG_EYE_HEIGHT, start.z - 8);
 
-const clock = new THREE.Clock();
+let elapsed = 0;
 
 function animate() {
   requestAnimationFrame(animate);
-  const _delta = clock.getDelta(); // will be used from M2 onwards
-  testBox.rotation.y += 0.01;
+  elapsed += 0.016;
+  updateRiver(elapsed);
   renderer.render(scene, camera);
 }
 
