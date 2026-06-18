@@ -45,9 +45,10 @@ Frogger-Klon, gespielt aus der First-Person-Perspektive eines Frosches mit biolo
 - Motion Mask: Statische Objekte → ~15% Opacity (Frame-Differenz oder Objekt-Flag)
 
 ## Aktueller Stand
-- **Milestone 1 ✓**: Vite + ESLint + Three.js läuft, leere Szene
-- **Milestone 2 ✓**: Spielfeld vollständig — Gras, Straße (mit Curbs + Dashes), Fluss (animiert), Seerosen-Slots
-- **Nächstes**: Milestone 3 — Frosch-Entity (grid-basierter Sprung) + First-Person-Kamera
+- **Milestone 1 ✓**: Vite + ESLint + Three.js läuft
+- **Milestone 2 ✓**: Spielfeld — Gras, Straße (Curbs + Dashes), Fluss (animiert), Seerosen-Slots
+- **Milestone 3 ✓**: Frosch springt grid-basiert; Kamera dreht sich mit `facingAngle`; WASD + Pfeiltasten; Rand-Begrenzung
+- **Nächstes**: Milestone 4 — Fahrzeuge (Auto/Lkw spawnen, Kollision = Tod)
 
 ## Wichtige Spielfeld-Zahlen (aus `constants.js`)
 - Rasterbreite: 13 Felder

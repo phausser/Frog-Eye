@@ -17,11 +17,14 @@
 - [x] `src/world/environment.js`: Startzone Gras + Mittleres Gras (flat-shaded)
 - [x] Kamera-Anpassung: Frog-Eye-Height (0.15) — in M3 leichte Abwärtskippung ergänzen
 
-## Milestone 3: Frosch & Kamera
-- [ ] `src/frog/frog.js`: Grid-Position, Sprung-Logik (grid-basiert, geblockt während Sprung)
-- [ ] `src/frog/frogCamera.js`: First-Person-Kamera, Sprung-Bogen-Animation (Y-Kurve)
-- [ ] Keyboard-Input: WASD + Pfeiltasten, kein gleichzeitiger Input während Sprung
-- [ ] Rand-Begrenzung: Frosch kann nicht aus dem Spielfeld springen
+## Milestone 3: Frosch & Kamera ✓
+- [x] `src/utils/math.js`: lerp, clamp, arc (sin-Kurve für Sprungbogen)
+- [x] `src/frog/frog.js`: Grid-State, `tryJump` (geblockt während Sprung), `updateFrog`, `getFrogPos`, `resetFrog`
+- [x] `src/frog/frogCamera.js`: First-Person-Kamera, `facingAngle` dreht Blickrichtung, LOOK_DOWN-Kippung
+- [x] `src/input.js`: W=springen, A=links drehen, D=rechts drehen, S=keine Funktion
+- [x] `rotateFrog(frog, dir)`: diskrete 90°-Drehung via CW/CCW Matrixrotation, blockiert während Sprung
+- [x] Smooth camera rotation: exponentieller Decay (`ANGLE_SPEED=20`), kürzester Winkelweg via `lerpAngle`
+- [x] Rand-Begrenzung: Row 0–14, Col 0–12 — Sprung wird verworfen wenn außerhalb
 
 ## Milestone 4: Verkehr
 - [ ] `src/world/vehicle.js`: Auto + Lkw als Low-Poly Box-Komposition
