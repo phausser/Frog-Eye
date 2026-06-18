@@ -26,9 +26,10 @@ export function createFrog() {
 export function rotateFrog(frog, dir) {
   if (frog.state !== 'idle') return;
   const { dRow, dCol } = frog.facingDir;
+  // || 0 normalises -0 → 0 for integer components (-1, 0, 1)
   frog.facingDir = dir === 1
-    ? { dRow: -dCol, dCol:  dRow }   // CW:  (1,0)→(0,1)→(-1,0)→(0,-1)
-    : { dRow:  dCol, dCol: -dRow };  // CCW: (1,0)→(0,-1)→(-1,0)→(0,1)
+    ? { dRow: -dCol || 0, dCol:  dRow || 0 }   // CW
+    : { dRow:  dCol || 0, dCol: -dRow || 0 };  // CCW
   frog.facingAngle = Math.atan2(frog.facingDir.dCol, frog.facingDir.dRow);
 }
 

@@ -26,6 +26,12 @@
 - [x] Smooth camera rotation: exponentieller Decay (`ANGLE_SPEED=20`), kürzester Winkelweg via `lerpAngle`
 - [x] Rand-Begrenzung: Row 0–14, Col 0–12 — Sprung wird verworfen wenn außerhalb
 
+## CI / CD / Dependabot ✓
+- [x] `tests/math.test.js`, `tests/grid.test.js`, `tests/frog.test.js` — 39 Tests, Vitest
+- [x] `.github/workflows/ci.yml` — Lint + Tests auf Node 22, bei Push + PR auf main
+- [x] `.github/workflows/cd.yml` — Vite Build + GitHub Pages Deploy, `VITE_BASE_URL` dynamisch gesetzt
+- [x] `.github/dependabot.yml` — npm (gruppiert) + github-actions, montags wöchentlich
+
 ## Milestone 4: Verkehr
 - [ ] `src/world/vehicle.js`: Auto + Lkw als Low-Poly Box-Komposition
 - [ ] `src/world/road.js`: Fahrzeuge spawnen, Geschwindigkeit + Richtung pro Reihe
