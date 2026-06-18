@@ -46,10 +46,12 @@
 - [x] `findPlatformUnderFrog` / `isFrogDrowning` / `checkFrogCroc` in collision.js
 - [x] Frosch ertrinkt wenn: keine Plattform unter ihm, Schildkröte underwater, Krokodil, vom Screen getragen
 
-## Milestone 6: Ziel & Level
-- [ ] Frosch erreicht Ziel-Reihe + leeren Slot: Slot füllen, Frosch zurück
-- [ ] Alle 5 Slots voll: Level-Up, Geschwindigkeiten erhöhen
-- [ ] `src/world/goal.js`: visuelles Feedback wenn Slot besetzt
+## Milestone 6: Ziel & Level ✓
+- [x] `checkGoalReached(frog)`: Frosch auf Ziel-Reihe + freier Slot → Slot-Index, sonst -1
+- [x] `markSlotFilled(index)`: visuelles Feedback (hellgrün), `filledSlots[]` State-Tracking
+- [x] Alle 5 Slots voll → Level-Up: `level++`, alle Fahrzeug/Plattform-Speeds ×1.25, Slots reset
+- [x] Score: +10 pro Vorwärts-Sprung, +50 pro Ziel-Slot; HUD-Anzeige (Score + Level)
+- [x] Wasser zwischen Slots / besetzter Slot → `loseLife()` (klassisches Frogger-Verhalten)
 
 ## Dual-Eye Vision ✓ (vorgezogen aus M7)
 - [x] `createFrogCameraSystem()`: zwei Kameras, je EYE_FOV=120°, EYE_OFFSET=50° nach außen

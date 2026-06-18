@@ -51,7 +51,8 @@ Frogger-Klon, gespielt aus der First-Person-Perspektive eines Frosches mit biolo
 - **Milestone 4 ✓**: 11 Fahrzeuge (Autos rot, Lkws blau) fahren, wrappen, töten den Frosch; Pool, Kollision, Leben
 - **Dual-Eye Vision ✓**: Zwei Kameras (je 120° FOV, 50° nach außen geneigt) → ~214° Sichtfeld; Nasenstreifen; `renderDualEye()` mit Scissor/Viewport; `autoClear=false`
 - **Milestone 5 ✓**: Plattformen (Log/Turtle/Croc), Schildkröten-Sink-Zyklus, `frog.worldX` für Drift, Ertrinken
-- **Nächstes**: Milestone 6 — Ziel-Slots, Gewinn-Check, Level-Up
+- **Milestone 6 ✓**: Ziel-Slots, Score (+10/+50), Level-Up (Speed ×1.25), filledSlots State
+- **Nächstes**: Milestone 7 — Fisheye-Shader (Barrel-Distortion + Farbshift)
 
 ## Wichtige Spielfeld-Zahlen (aus `constants.js`)
 - Rasterbreite: 13 Felder
